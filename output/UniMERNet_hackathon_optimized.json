@@ -1,0 +1,255 @@
+{
+    "title": "UniMERNet: A Universal Network for",
+    "outline": [
+        {
+            "level": "H2",
+            "text": "Introduction",
+            "page": 1
+        },
+        {
+            "level": "H2",
+            "text": "Real-World Mathematical Expression Recognition",
+            "page": 1
+        },
+        {
+            "level": "H2",
+            "text": "References",
+            "page": 8
+        },
+        {
+            "level": "H2",
+            "text": "Appendix",
+            "page": 10
+        },
+        {
+            "level": "H2",
+            "text": "Conclusion",
+            "page": 8
+        },
+        {
+            "level": "H3",
+            "text": "Bin Wang",
+            "page": 1
+        },
+        {
+            "level": "H3",
+            "text": "Chao Xu",
+            "page": 1
+        },
+        {
+            "level": "H3",
+            "text": "Related Work",
+            "page": 2
+        },
+        {
+            "level": "H3",
+            "text": "Traditional Machine Learning Methods in MER",
+            "page": 2
+        },
+        {
+            "level": "H3",
+            "text": "Deep Learning and Transformer Methods in MER",
+            "page": 2
+        },
+        {
+            "level": "H3",
+            "text": "UniMER Dataset",
+            "page": 3
+        },
+        {
+            "level": "H3",
+            "text": "Data Collection Process",
+            "page": 3
+        },
+        {
+            "level": "H3",
+            "text": "Diversified Training Data Sampling",
+            "page": 3
+        },
+        {
+            "level": "H4",
+            "text": "Abstract",
+            "page": 1
+        },
+        {
+            "level": "H1",
+            "text": "arXiv:2404.15254v2  [cs.CV]  5 Sep 2024",
+            "page": 1
+        },
+        {
+            "level": "H4",
+            "text": "Datasets and Evaluation Metrics",
+            "page": 5
+        },
+        {
+            "level": "H4",
+            "text": "Implementation Details",
+            "page": 6
+        },
+        {
+            "level": "H4",
+            "text": "Ablation Study",
+            "page": 6
+        },
+        {
+            "level": "H1",
+            "text": "UniMERNet: A Universal Network for",
+            "page": 1
+        },
+        {
+            "level": "H3",
+            "text": "UniMERNet",
+            "page": 4
+        },
+        {
+            "level": "H4",
+            "text": "Pre-training with Text Image Pairs",
+            "page": 7
+        },
+        {
+            "level": "H3",
+            "text": "UniMERNet-Encoder",
+            "page": 5
+        },
+        {
+            "level": "H4",
+            "text": "UniMERNet-Decoder",
+            "page": 5
+        },
+        {
+            "level": "H4",
+            "text": "utilize the previous prediction results to generate each suc-",
+            "page": 5
+        },
+        {
+            "level": "H3",
+            "text": "Experiments",
+            "page": 5
+        },
+        {
+            "level": "H4",
+            "text": "Details of UniMER Dataset",
+            "page": 10
+        },
+        {
+            "level": "H4",
+            "text": "context-aware modules in the encoder stage and accelerates",
+            "page": 4
+        },
+        {
+            "level": "H4",
+            "text": "the Shift Window results in slight improvements in both ac-",
+            "page": 7
+        },
+        {
+            "level": "H4",
+            "text": "Sample B",
+            "page": 7
+        },
+        {
+            "level": "H4",
+            "text": "Sample C",
+            "page": 7
+        },
+        {
+            "level": "H4",
+            "text": "Data Statistics",
+            "page": 11
+        },
+        {
+            "level": "H4",
+            "text": "Sample A",
+            "page": 7
+        },
+        {
+            "level": "H4",
+            "text": "Data Augmentation",
+            "page": 11
+        },
+        {
+            "level": "H3",
+            "text": "Optimal Depth Configuration for UniMERNet",
+            "page": 12
+        },
+        {
+            "level": "H3",
+            "text": ", Zhuangcheng Gu",
+            "page": 1
+        },
+        {
+            "level": "H3",
+            "text": ", Guang Liang",
+            "page": 1
+        },
+        {
+            "level": "H3",
+            "text": ", Bo Zhang",
+            "page": 1
+        },
+        {
+            "level": "H3",
+            "text": ", Botian Shi",
+            "page": 1
+        },
+        {
+            "level": "H3",
+            "text": ", Conghui He",
+            "page": 1
+        },
+        {
+            "level": "H4",
+            "text": "Existing research has primarily focused on enhancing the",
+            "page": 1
+        },
+        {
+            "level": "H4",
+            "text": "Blecher 2022",
+            "page": 1
+        },
+        {
+            "level": "H4",
+            "text": "Paruchuri 2023",
+            "page": 1
+        },
+        {
+            "level": "H4",
+            "text": "These methods demonstrate remarkable competence in rec-",
+            "page": 1
+        },
+        {
+            "level": "H4",
+            "text": "To train a high-quality formula recognition model capa-",
+            "page": 2
+        },
+        {
+            "level": "H4",
+            "text": "The main contributions of this paper are as follows:",
+            "page": 2
+        },
+        {
+            "level": "H4",
+            "text": "Anderson 1967",
+            "page": 2
+        },
+        {
+            "level": "H4",
+            "text": "Miller and Vi-",
+            "page": 2
+        },
+        {
+            "level": "H4",
+            "text": "Chan and Yeung 1999",
+            "page": 2
+        },
+        {
+            "level": "H4",
+            "text": "presents the results of",
+            "page": 12
+        },
+        {
+            "level": "H4",
+            "text": "The UniMER dataset addresses the diversity of formula",
+            "page": 3
+        }
+    ]
+}

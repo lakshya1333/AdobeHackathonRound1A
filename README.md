@@ -1,6 +1,26 @@
-# Advanced Offline PDF Heading Extractor
+# Generic PDF Heading Extractor
 
-A comprehensive, modular PDF heading extraction system that works 100% offline using only PyMuPDF and standard Python libraries. This system uses multi-signal analysis to accurately detect titles, H1, H2, and H3 headings from any type of PDF document.
+A robust, document-agnostic PDF heading extraction system that works across different PDF formats and layouts without hardcoded patterns. This system uses dynamic statistical analysis and multi-factor scoring to accurately detect titles and headings (H1-H4) from any well-formatted PDF document.
+
+## 🚀 Quick Start
+
+### 1. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 2. Add PDF Files
+Place your PDF files in the `input/` directory.
+
+### 3. Run the Extractor
+```bash
+python main_hackathon_optimized.py
+```
+
+### 4. Check Results
+Results are saved in the `output/` directory as JSON files.
+
+**That's it!** The system will automatically process all PDFs and extract headings without any configuration needed.
 
 ## Features
 
