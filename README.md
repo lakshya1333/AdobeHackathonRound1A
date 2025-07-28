@@ -1,328 +1,211 @@
 # Generic PDF Heading Extractor
 
-A robust, document-agnostic PDF heading extraction system that works across different PDF formats and layouts without hardcoded patterns. This system uses dynamic statistical analysis and multi-factor scoring to accurately detect titles and headings (H1-H4) from any well-formatted PDF document.
+A robust, document-agnostic PDF heading extraction system that works across different PDF formats and layouts. This project was developed for the Adobe Hackathon Round 1A to extract structured headings and titles from PDF documents.
 
-## 🚀 Quick Start
+## Our Approach
 
-### 1. Install Dependencies
-```bash
-pip install -r requirements.txt
-```
+### Core Philosophy
+Our solution employs a **generic, document-agnostic approach** that doesn't rely on hardcoded patterns or document-specific rules. Instead, it uses dynamic analysis to understand document structure and extract headings based on:
 
-### 2. Add PDF Files
-Place your PDF files in the `input/` directory.
+1. **Font Analysis**: Dynamic font size statistics to identify relative importance
+2. **Position Analysis**: Early content positioning for title and heading detection
+3. **Pattern Recognition**: Generic patterns like numbered sections, bullet points, and formatting cues
+4. **Content Analysis**: Keyword-based detection for structural elements
+5. **Confidence Scoring**: Multi-factor scoring system to rank heading candidates
 
-### 3. Run the Extractor
-```bash
-python main_hackathon_optimized.py
-```
+### Key Features
 
-### 4. Check Results
-Results are saved in the `output/` directory as JSON files.
+#### Dynamic Title Extraction
+- Analyzes the first 20% of document blocks or first 30 blocks
+- Uses font size ratios, position scoring, and content patterns
+- Considers formatting (bold, capitalization) and reasonable title length
 
-**That's it!** The system will automatically process all PDFs and extract headings without any configuration needed.
+#### Adaptive Heading Detection
+- Calculates document-wide font statistics for dynamic thresholding
+- Uses confidence scoring based on multiple factors:
+  - Font size relative to document average
+  - Text formatting (bold, italic)
+  - Position within document
+  - Pattern matching (numbered sections, bullet points)
+  - Keyword recognition (introduction, summary, etc.)
+  - Content quality metrics
 
-## Features
+#### Hierarchical Classification
+- Automatically classifies headings into levels (H1, H2, H3, H4)
+- Based on font size ratios, formatting, and structural patterns
+- No hardcoded document-specific rules
 
-### 🎯 **Multi-Signal Heading Detection**
-- **Font Analysis**: Size, style, weight, and family analysis
-- **Content Analysis**: Linguistic patterns and keyword recognition
-- **Pattern Recognition**: Numbering schemes and structural patterns
-- **Spatial Analysis**: Position, spacing, and layout analysis
-- **Context Analysis**: Surrounding text and document flow
-
-### 📄 **Supported Document Types**
-- ✅ Research papers and academic documents
-- ✅ Technical reports and specifications  
-- ✅ Business documents and presentations
-- ✅ Resumes and CVs
-- ✅ Books and manuals
-- ✅ Forms and structured documents
-
-### 📊 **Multiple Output Formats**
-- **JSON**: Detailed metadata and structured data
-- **CSV**: Spreadsheet-friendly tabular format
-- **TXT**: Human-readable outline format
-
-### ⚙️ **Advanced Configuration**
+#### Robust Processing
+- Handles various PDF formats and layouts
+- Error handling and fallback mechanisms
 - Configurable confidence thresholds
-- Hierarchical validation and correction
-- Font analysis parameters
-- Export format selection
 
-## Project Structure
+## Models and Libraries Used
 
-```
-Adobe_Round-1A/
-├── input/                          # Place PDF files here
-├── output/                         # Generated results
-├── main_offline.py                 # Main processing script
-├── extractor.py                    # PDF text extraction module
-├── classifier.py                   # Heading classification module
-├── font_analyzer.py                # Font hierarchy analysis
-├── pattern_recognizer.py           # Pattern and structure recognition
-├── text_processor.py               # Text analysis and processing
-├── data_structures.py              # Core data structures
-├── utils.py                        # Utility functions
-├── demo_and_config.py              # Configuration and demo script
-├── debug_analysis.py               # Debug and analysis tool
-└── README.md                       # This file
-```
+### Core Dependencies
+- **PyMuPDF (fitz) v1.23.4**: Primary PDF processing library
+  - Text extraction with detailed formatting information
+  - Font metadata extraction (size, name, flags)
+  - Bounding box information for spatial analysis
 
-## Installation and Requirements
+### Built-in Python Libraries
+- **json**: Output formatting and serialization
+- **logging**: Error handling and debugging
+- **re**: Regular expression pattern matching
+- **statistics**: Font size analysis and statistical calculations
+- **time**: Performance monitoring
+- **pathlib**: File system operations
+- **typing**: Type hints for better code maintainability
+- **collections.Counter**: Level distribution analysis
+- **dataclasses**: Structured data representation
+
+### Custom Components
+- **TextBlock**: Custom data structure for comprehensive text metadata
+- **GenericPDFHeadingExtractor**: Main extraction engine with dynamic analysis
+- **Font Statistics Analyzer**: Dynamic document analysis for adaptive thresholding
+
+## How to Build and Run Your Solution
 
 ### Prerequisites
-- Python 3.7+
-- PyMuPDF (fitz) - `pip install PyMuPDF`
+- Python 3.10 or higher
+- pip package manager
 
 ### Installation
+
+#### Option 1: Local Installation
 ```bash
 # Clone or download the project
 cd Adobe_Round-1A
 
-# Install PyMuPDF (only external dependency)
-pip install PyMuPDF
-
-# The system is ready to use!
+# Install dependencies
+pip install -r requirements.txt
 ```
 
-## Quick Start
-
-### 1. Basic Usage
+#### Option 2: Docker Installation
 ```bash
-# Place PDF files in the 'input/' directory
-mkdir input
-# Copy your PDF files to input/
+# Build the Docker image
+docker build -t pdf-heading-extractor .
 
-# Run the extraction system
-python main_offline.py
+# Run with Docker
+docker run -v $(pwd)/input:/app/input -v $(pwd)/output:/app/output pdf-heading-extractor
 ```
 
-### 2. Check Results
-Results are saved in the `output/` directory in three formats:
-- `filename_headings_offline.json` - Detailed structured data
-- `filename_headings_offline_headings.csv` - Tabular format
-- `filename_headings_offline_outline.txt` - Human-readable outline
+### Usage
 
-## Advanced Usage
-
-### Debug Analysis
+#### Basic Usage
 ```bash
-# Analyze classification scores and font hierarchy
-python debug_analysis.py
+# Process all PDFs in the input directory
+python main_hackathon_optimized.py
 ```
 
-### Configuration Demo
-```bash
-# See advanced features and configuration options
-python demo_and_config.py
-```
+#### Input Setup
+1. Place your PDF files in the `input/` directory
+2. The system will automatically detect and process all `.pdf` files
 
-### Custom Processing
-```python
-from extractor import OfflinePDFHeadingExtractor
-
-# Initialize with custom confidence threshold
-extractor = OfflinePDFHeadingExtractor()
-results = extractor.process_pdf_offline("document.pdf", confidence_threshold=0.3)
-
-# Process results
-headings = results['headings']
-for heading in headings:
-    print(f"{heading['level']}: {heading['text']} (confidence: {heading['confidence']:.2f})")
-```
-
-## Module Documentation
-
-### Core Modules
-
-#### `main_offline.py`
-Main processing script with comprehensive error handling, performance monitoring, and multi-format output generation.
-
-#### `extractor.py` 
-PDF text extraction and block analysis. Handles PyMuPDF integration and text block enhancement.
-
-#### `classifier.py`
-Multi-signal heading classification system combining font, content, pattern, spatial, and context analysis.
-
-#### `font_analyzer.py`
-Font hierarchy analysis including size distribution, style analysis, and heading likelihood scoring.
-
-#### `pattern_recognizer.py`
-Pattern recognition for numbering schemes, capitalization patterns, and structural elements.
-
-#### `text_processor.py`
-Text analysis including tokenization, stopword removal, and linguistic feature extraction.
-
-#### `data_structures.py`
-Core data structures including the `TextBlock` class with comprehensive metadata.
-
-#### `utils.py`
-Utility functions for hierarchy validation, multi-format export, and result post-processing.
-
-## Configuration Options
-
-### ExtractorConfig Class
-```python
-class ExtractorConfig:
-    confidence_threshold = 0.25           # Minimum heading confidence
-    title_confidence_threshold = 0.3     # Minimum title confidence
-    min_font_size_ratio = 1.1            # Font size ratio threshold
-    max_heading_words = 15               # Maximum words in heading
-    include_low_confidence = False       # Include low-confidence headings
-    export_formats = ['json', 'csv', 'txt']  # Output formats
-    validate_hierarchy = True            # Enable hierarchy validation
-```
-
-## Performance
-
-### Typical Performance Metrics
-- **Processing Speed**: 0.02-0.20 seconds per document
-- **Memory Usage**: Low memory footprint
-- **Accuracy**: High precision with configurable recall
-
-### Performance Example
-```
-Total files processed: 6
-Successful: 6
-Failed: 0
-Total headings extracted: 34
-Average headings per document: 5.7
-Total processing time: 0.55s
-Average time per document: 0.09s
-```
-
-## Output Examples
-
-### JSON Output
+#### Output
+- Results are saved in the `output/` directory
+- Each PDF generates a corresponding JSON file with the format: `{filename}_hackathon_optimized.json`
+- Output format:
 ```json
 {
-  "title": "Research Paper Title",
-  "headings": [
-    {
-      "level": "h1",
-      "text": "Introduction",
-      "page": 1,
-      "font_size": 14.5,
-      "confidence": 0.89,
-      "bbox": [72, 150, 200, 165],
-      "features": {
-        "word_count": 1,
-        "is_bold": true,
-        "caps_ratio": 0.09,
-        "numbering": {"type": null, "number": null, "title": "Introduction"}
-      }
-    }
-  ],
-  "metadata": {
-    "total_blocks": 156,
-    "confidence_threshold": 0.25,
-    "processing_method": "offline_comprehensive"
-  }
+    "title": "Document Title",
+    "outline": [
+        {
+            "level": "H1",
+            "text": "Heading Text",
+            "page": 1
+        }
+    ]
 }
 ```
 
-### CSV Output
-```csv
-Level,Text,Page,Font Size,Confidence,Word Count
-h1,Introduction,1,14.5,0.89,1
-h2,Background,1,12.0,0.75,1
-h2,Methodology,2,12.0,0.82,1
+### Configuration Options
+
+#### Confidence Threshold
+You can adjust the heading detection sensitivity by modifying the confidence threshold in the code:
+
+```python
+# In main_hackathon_optimized.py
+extractor = GenericPDFHeadingExtractor(confidence_threshold=0.5)  # Default: 0.5
 ```
 
-### TXT Outline
+- Lower values (0.3-0.4): More headings detected, potentially more false positives
+- Higher values (0.6-0.8): Fewer headings detected, higher precision
+
+### Project Structure
 ```
-TITLE: Research Paper Title
-==================================================
-
-  H1: Introduction (Page 1)
-    H2: Background (Page 1)
-    H2: Methodology (Page 2)
-  H1: Results (Page 3)
-    H2: Analysis (Page 3)
+Adobe_Round-1A/
+├── main_hackathon_optimized.py    # Main processing script
+├── data_structures.py             # TextBlock data structure
+├── ground_truth_analyzer.py       # Analysis utilities
+├── requirements.txt               # Python dependencies
+├── Dockerfile                     # Container configuration
+├── input/                         # Input PDF files
+├── output/                        # Generated JSON results
+└── README.md                      # This file
 ```
 
-## Architecture
+### Performance Characteristics
+- **Processing Speed**: ~2-5 seconds per document (varies by size and complexity)
+- **Memory Usage**: Optimized for large documents with streaming processing
+- **Accuracy**: Tuned for high precision with configurable recall
+- **Scalability**: Batch processing support for multiple documents
 
-### Multi-Signal Classification Pipeline
+### Troubleshooting
 
-1. **Text Extraction**: PyMuPDF extracts text blocks with font metadata
-2. **Feature Analysis**: Multiple feature extractors analyze each block
-3. **Font Hierarchy**: Statistical analysis of font usage patterns
-4. **Classification**: Weighted combination of multiple signals
-5. **Validation**: Hierarchical structure validation and correction
-6. **Export**: Multi-format output generation
+#### Common Issues
+1. **No PDFs found**: Ensure PDF files are in the `input/` directory
+2. **Permission errors**: Check file permissions for input/output directories
+3. **Memory issues**: For very large PDFs, consider processing individually
 
-### Signal Weights
-- Font Size & Style: 40% (25% + 15%)
-- Content Analysis: 20%
-- Pattern Matching: 15%
-- Context Analysis: 15%
-- Spatial Features: 10%
+#### Debug Mode
+Enable detailed logging by modifying the logging level:
+```python
+logging.basicConfig(level=logging.DEBUG)
+```
 
-## Troubleshooting
-
-### Common Issues
-
-#### No Headings Detected
-- Lower the confidence threshold: `confidence_threshold=0.15`
-- Check debug output: `python debug_analysis.py`
-- Verify PDF has extractable text (not scanned image)
-
-#### Too Many False Positives
-- Increase confidence threshold: `confidence_threshold=0.35`
-- Reduce maximum heading words: `max_heading_words=10`
-
-#### Incorrect Hierarchy
-- Enable hierarchy validation: `validate_hierarchy=True`
-- Check font hierarchy in debug output
-
-### Debug Commands
+### Testing and Validation
+Use the included ground truth analyzer to compare results:
 ```bash
-# Analyze specific document
-python debug_analysis.py
-
-# Test different confidence thresholds
-python demo_and_config.py
-
-# Verbose processing
-python main_offline.py  # Check console output
+python ground_truth_analyzer.py
 ```
 
-## Integration Notes
+This tool helps validate extraction accuracy against expected results and provides detailed analysis of the extraction performance.
 
-### Seamless Module Integration
-This refactored codebase integrates advanced modular components while preserving your existing logic:
+### Algorithm Details
 
-1. **Preserved Functionality**: All original PDF processing capabilities maintained
-2. **Enhanced Analysis**: Added multi-signal classification and font hierarchy analysis
-3. **Improved Structure**: Clean separation of concerns across modules
-4. **Backward Compatibility**: Existing interfaces preserved where possible
-5. **Extended Features**: Added configuration, debugging, and multiple output formats
+#### Font Statistics Analysis
+The system calculates comprehensive font statistics including:
+- Average, minimum, maximum font sizes
+- Standard deviation for size variation
+- 75th and 90th percentile thresholds
+- Font variety metrics
 
-### Migration from Previous Version
-- ✅ All existing PDF processing logic preserved
-- ✅ Enhanced with advanced classification algorithms
-- ✅ Improved error handling and validation
-- ✅ Added comprehensive configuration options
-- ✅ Maintained offline-only operation
+#### Confidence Scoring Algorithm
+Each potential heading is scored based on:
+- **Font Size Factor (40% weight)**: Relative size compared to document average
+- **Position Factor (20% weight)**: Earlier content scores higher
+- **Pattern Factor (25% weight)**: Numbered sections, bullet points, formatting
+- **Keyword Factor (15% weight)**: Structural and sectional keywords
 
-## License
+#### Dynamic Thresholding
+- Adapts to document characteristics
+- Prevents over-extraction in dense documents
+- Ensures minimum quality standards
 
-This project uses only standard Python libraries and PyMuPDF for maximum compatibility and offline operation.
+### Technical Implementation
 
-## Contributing
+#### Text Extraction Pipeline
+1. **PDF Parsing**: PyMuPDF extracts text with formatting metadata
+2. **Block Creation**: Convert spans to TextBlock objects with enhanced properties
+3. **Statistical Analysis**: Calculate document-wide font and formatting statistics
+4. **Title Detection**: Analyze early content for document title
+5. **Heading Classification**: Score and classify potential headings
+6. **Level Assignment**: Hierarchical classification based on multiple factors
+7. **Output Generation**: Format results in standardized JSON structure
 
-To extend the system:
-1. Add new signal analysis in `classifier.py`
-2. Extend pattern recognition in `pattern_recognizer.py`
-3. Add new output formats in `utils.py`
-4. Enhance font analysis in `font_analyzer.py`
-
-## Support
-
-For issues or questions:
-1. Check the debug output: `python debug_analysis.py`
-2. Review configuration options: `python demo_and_config.py`
-3. Examine the JSON output for detailed analysis results
-
+#### Error Handling
+- Graceful degradation for corrupted PDFs
+- Fallback mechanisms for missing metadata
+- Comprehensive logging for debugging
+- Input validation and sanitization
