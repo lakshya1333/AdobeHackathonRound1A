@@ -84,10 +84,11 @@ pip install -r requirements.txt
 #### Option 2: Docker Installation
 ```bash
 # Build the Docker image
-docker build -t pdf-heading-extractor .
+docker build --platform=linux/amd64 -t mysolutionname:somerandomidentifier .
 
 # Run with Docker
-docker run -v $(pwd)/input:/app/input -v $(pwd)/output:/app/output pdf-heading-extractor
+docker run --rm -v $(pwd)/input:/app/input -v $(pwd)/output:/app/output --
+network none mysolutionname:somerandomidentifier
 ```
 
 ### Usage
